@@ -1,23 +1,19 @@
 package klaxon.klaxon.angulus;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
+import static slimeknights.tconstruct.tools.harvest.TinkerHarvestTools.excavator;
+import static slimeknights.tconstruct.tools.harvest.TinkerHarvestTools.hammer;
+import static slimeknights.tconstruct.tools.harvest.TinkerHarvestTools.lumberAxe;
+
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
-import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
-@Mod.EventBusSubscriber
 public class CommonProxy {
-    private Modifier modExpanderCorner;
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onExtraBlockBreak(TinkerToolEvent.ExtraBlockBreak event) {
+        if (event.tool != excavator && event.tool != hammer && event.tool != lumberAxe)
+            return;
 
-    public void preInit() {
-        modExpanderCorner =
-    }
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> evt) {
-        var registry = evt.getRegistry();
-
-
+        event.distance = 0;
     }
 }
